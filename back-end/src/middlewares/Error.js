@@ -7,13 +7,9 @@ module.exports = (err, _req, res, _next) => {
     case 'not_found':
       status = 404;
       break;
-    case 'stock_problem':
-      status = 404;
-      break;
     default:
       status = 500;
       break;
   }
-
   res.status(status).json(err);
 };

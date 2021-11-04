@@ -12,6 +12,7 @@ app.get('/', (_request, response) => {
 
 app.post('/tasks', Tasks.createTask);
 app.get('/tasks', Tasks.getAll);
+app.put('/tasks/:id', Tasks.updateTask);
 
 app.use(errorMiddleware);
 

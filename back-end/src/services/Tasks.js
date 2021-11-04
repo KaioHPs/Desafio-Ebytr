@@ -1,13 +1,19 @@
 const Joi = require('joi')
   .extend(require('@joi/date'));
 const Tasks = require('../models/Tasks');
+const ErrorList = require('../ErrorList');
 
 const statusOrder = [ 'pendente', 'em andamento', 'pronto' ];
 
 const newTaskValidation = Joi.object({
   task: Joi.string().required(),
   creationDate: Joi.date().format('DD/MM/YYYY').required(),
-  taskStatus: Joi.string().required(),
+  taskStatus: Joi.string().valid(...statusOrder).required(),
+});
+
+const updateTaskValidation = Joi.object({
+  task: Joi.string(),
+  taskStatus: Joi.string().valid(...statusOrder).required(),
 });
 
 const convertDate = (date) => {
@@ -56,7 +62,28 @@ const getAll = async (orderBy) => {
   return listedTasks;
 }
 
+const updateTask = async (id, task, taskStatus) => {
+  const isValid = updateTaskValidation.validate({ task, taskStatus });
+  if (isValid.error) {
+    return { err: {
+        code: 'invalid_data',
+        message: isValid.error.details[0].message,
+      },
+    };
+  }
+  const existingTask = await Tasks.getById(id);
+  if (existingTask) {
+    if (task) {
+      return Tasks.updateTask(id, task, existingTask.creationDate, taskStatus);
+    } else {
+      return Tasks.updateTask(id, existingTask.task, existingTask.creationDate, taskStatus);
+    }
+  }
+  return ErrorList.idNotFound;
+};
+
 module.exports = {
   createTask,
   getAll,
+  updateTask,
 };

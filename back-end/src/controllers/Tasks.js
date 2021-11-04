@@ -16,7 +16,17 @@ const getAll = rescue(async (req, res, _next) => {
   return res.status(200).json(allTasks);
 });
 
+const updateTask = rescue(async (req, res, next) => {
+  const { id } = req.params;
+  const { task, taskStatus } = req.body;
+  const updatedTask = await Tasks.updateTask(id, task, taskStatus);
+  console.log(updatedTask);
+  if (updatedTask.err) return next(updatedTask.err);
+  return res.status(200).json(updatedTask);
+});
+
 module.exports = {
   createTask,
   getAll,
+  updateTask,
 };
