@@ -25,8 +25,16 @@ const updateTask = rescue(async (req, res, next) => {
   return res.status(200).json(updatedTask);
 });
 
+const deleteTask = rescue(async (req, res, next) => {
+  const { id } = req.params;
+  const deletedTask = await Tasks.deleteTask(id);
+  if (deletedTask.err) return next(deletedTask.err);
+  return res.status(200).json(deletedTask);
+});
+
 module.exports = {
   createTask,
   getAll,
   updateTask,
+  deleteTask,
 };

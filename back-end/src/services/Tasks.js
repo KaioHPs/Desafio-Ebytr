@@ -82,8 +82,21 @@ const updateTask = async (id, task, taskStatus) => {
   return ErrorList.idNotFound;
 };
 
+const deleteTask = async (id) => {
+  const existingTask = await Tasks.getById(id);
+  if (existingTask) {
+    await Tasks.deleteTask(id);
+    return {
+      message: 'Task deleted successfully',
+      deletedTask: existingTask,
+    };
+  }
+  return ErrorList.idNotFound;
+};
+
 module.exports = {
   createTask,
   getAll,
   updateTask,
+  deleteTask,
 };

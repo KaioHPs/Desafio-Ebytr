@@ -29,9 +29,14 @@ const updateTask = async (id, task, creationDate, taskStatus) => {
   .then((_result) => ({ _id: id, task, creationDate, taskStatus, lastUpdate }));
 }
 
+const deleteTask = async (id) => Connection()
+.then((db) => db.collection('tasks').deleteOne({ _id: new ObjectId(id) }));
+
+
 module.exports = {
   createTask,
   getAll,
   getById,
   updateTask,
+  deleteTask,
 }
