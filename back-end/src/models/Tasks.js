@@ -1,9 +1,12 @@
 const Connection = require('./Connection');
 const { ObjectId } = require('mongodb');
 
-const createTask = async (task, {formDate, creationDate}, taskStatus) => Connection()
-.then((db) => db.collection('tasks').insertOne({ task, creationDate: new Date(formDate), taskStatus }))
-.then((result) => ({ _id: result.insertedId, task, creationDate, taskStatus }))
+const createTask = async (task, taskStatus) => {
+  const creationDate = new Date();
+  return Connection()
+    .then((db) => db.collection('tasks').insertOne({ task, creationDate, taskStatus }))
+    .then((result) => ({ _id: result.insertedId, task, creationDate, taskStatus }))
+};
 
 const getAll = async () => Connection()
   .then((db) => db.collection('tasks').find().toArray());

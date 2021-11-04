@@ -2,8 +2,8 @@ const rescue = require('express-rescue');
 const Tasks = require('../services/Tasks');
 
 const createTask = rescue(async (req, res, next) => {
-  const { task, creationDate, taskStatus } = req.body;
-  const newTask = await Tasks.createTask(task, creationDate, taskStatus);
+  const { task, taskStatus } = req.body;
+  const newTask = await Tasks.createTask(task, taskStatus);
   if (newTask.err) return next(newTask.err);
 
   return res.status(201).json(newTask);
