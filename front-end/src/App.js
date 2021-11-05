@@ -58,4 +58,3 @@ function App() {
 }
 
 export default App;
-// git commit -m 'Listagem de tarefas e botao para deletar tarefa'
