@@ -28,6 +28,40 @@
   color: #61dafb;
 }
 
+.btnDelete, .btnGet, .btnClean {
+  border: 0;
+  border-radius: 3px;
+  color: white;
+  font-weight: 700;
+  padding: 0.5em 0.4em;
+}
+
+.btnDelete {
+  margin-left: 1em;
+  background-color: #e7433d;
+}
+
+.btnGet {
+  background-color: #51b1e7;
+}
+
+.btnClean {
+  background-color: #f99d2e;
+}
+
+.task-li {
+  list-style: none;
+  margin-bottom: 0.5em;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin: 0.3em 25%;
+  width: 50%;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
