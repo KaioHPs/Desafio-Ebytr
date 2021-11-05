@@ -12,6 +12,7 @@ const createTask = rescue(async (req, res, next) => {
 const getAll = rescue(async (req, res, _next) => {
   const { orderBy } = req.body;
   const allTasks = await Tasks.getAll(orderBy);
+  console.log(allTasks);
 
   return res.status(200).json(allTasks);
 });
